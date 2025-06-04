@@ -108,7 +108,7 @@ function createMarker(place) {
     position: new kakao.maps.LatLng(Number(place.y), Number(place.x)),
     title: place.place_name,
     image: new kakao.maps.MarkerImage(
-      "public/images/star.png",
+      "./public/images/star.png",
       new kakao.maps.Size(20, 20)
     ),
   });
@@ -242,24 +242,26 @@ categoryButtons.forEach((button) => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const mapContainer = document.getElementById("map");
-  map = new kakao.maps.Map(mapContainer, {
-    center: new kakao.maps.LatLng(centerLat, centerLng),
-    level: 2,
-  });
-
-  try {
-    const res = await fetch("/public/data/restaurants.json");
-    restaurantData = await res.json();
-
-    // 최초 마커 및 오버레이 생성
-    restaurantData.forEach((place) => {
-      const { marker, customOverlay } = createMarker(place);
-      markers.push({ marker, category: getCategory(place), customOverlay });
-      customOverlays.push(customOverlay);
+  kakao.maps.load(async () => {
+    const mapContainer = document.getElementById("map");
+    map = new kakao.maps.Map(mapContainer, {
+      center: new kakao.maps.LatLng(centerLat, centerLng),
+      level: 2,
     });
-    updateRestaurantList();
-  } catch (err) {
-    console.error("📛 JSON 데이터 로딩 실패:", err);
-  }
+
+    try {
+      const res = await fetch("./public/data/restaurants.json");
+      restaurantData = await res.json();
+
+      // 최초 마커 생성
+      restaurantData.forEach((place) => {
+        const { marker, customOverlay } = createMarker(place);
+        markers.push({ marker, category: getCategory(place), customOverlay });
+        customOverlays.push(customOverlay);
+      });
+      updateRestaurantList();
+    } catch (err) {
+      console.error("📛 JSON 데이터 로딩 실패:", err);
+    }
+  });
 });
