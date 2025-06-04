@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no;"
+    />
+    <title>🍚밥집</title>
+    <script defer src="./src/app.js"></script>
+    <link rel="stylesheet" href="/src/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
+  <body>
+    <header>
+      <span class="logo-text">밥집</span
+      ><button class="hamburger">
+        <span class="material-icons">menu</span>
+      </button>
+    </header>
+    <div id="map"></div>
+    <div id="bottom_modal">
+      <div id="handle">
+        <div class="black-bar"></div>
+      </div>
+      <div class="category-scroll-wrapper">
+        <div class="category-scroll">
+          <button class="category-btn active" data-category="all">전체</button>
+          <button class="category-btn" data-category="한식">한식</button>
+          <button class="category-btn" data-category="중식">중식</button>
+          <button class="category-btn" data-category="일식">일식</button>
+          <button class="category-btn" data-category="양식">양식</button>
+          <button class="category-btn" data-category="분식">분식</button>
+          <button class="category-btn" data-category="치킨">치킨</button>
+          <button class="category-btn" data-category="술집">술집</button>
+          <button class="category-btn" data-category="간식">간식</button>
+          <button class="category-btn" data-category="기타">기타</button>
+        </div>
+      </div>
+      <div id="restaurant-list"></div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=7d5547fdf68e4a513defc9d0df339361&libraries=services"
+    ></script>
+  </body>
+</html>
