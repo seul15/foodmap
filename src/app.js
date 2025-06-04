@@ -8,6 +8,7 @@ let restaurantData = [];
 let markers = [];
 let customOverlays = [];
 let map;
+const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
 const centerLat = 37.54817;
 const centerLng = 127.073403;
@@ -129,14 +130,28 @@ function createMarker(place) {
     yAnchor: 1.2,
   });
 
-  kakao.maps.event.addListener(marker, "mouseover", () => {
-    hideAllOverlays();
-    customOverlay.setMap(map);
-  });
+  if (isMobile) {
+    kakao.maps.event.addListener(marker, "click", () => {
+      const isVisible = customOverlay.getMap();
+      hideAllOverlays();
+      if (!isVisible) {
+        customOverlay.setMap(map);
+      }
+    });
 
-  kakao.maps.event.addListener(marker, "mouseout", () => {
-    hideAllOverlays();
-  });
+    kakao.maps.event.addListener(map, "click", () => {
+      hideAllOverlays();
+    });
+  } else {
+    kakao.maps.event.addListener(marker, "mouseover", () => {
+      hideAllOverlays();
+      customOverlay.setMap(map);
+    });
+
+    kakao.maps.event.addListener(marker, "mouseout", () => {
+      hideAllOverlays();
+    });
+  }
 
   return { marker, customOverlay };
 }
