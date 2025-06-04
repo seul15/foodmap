@@ -220,7 +220,8 @@ function focusOnRestaurant(item) {
   hideAllOverlays();
   customOverlay.setMap(map);
 
-  bottomModal.style.transform = `translateY(${hiddenY})`;
+  updateModalPositions();
+  bottomModal.style.transform = `translateY(${hiddenY}px)`;
   bottomModal.classList.remove("expanded");
 }
 
